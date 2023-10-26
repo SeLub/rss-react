@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
 type SearchProps = {
-  handleSubmit: (event: any) => void;
-  handleChange: (event: any) => void;
-}
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
 class SearchBar extends Component<SearchProps> {
   render() {
     return (
