@@ -17,11 +17,10 @@ export async function searchAnimal(searchWord: string): Promise<AnimalType[]> {
   if (searchWord.trim() === '') {
     return animalsArray;
   } else {
-    const animal = await animalsArray.filter(
-      (animal: AnimalType) => {
-        let condition = new RegExp(`.*${searchWord}.*`);
-        return condition.test(animal.name);}
-    );
+    const animal = await animalsArray.filter((animal: AnimalType) => {
+      const condition = new RegExp(`.*${searchWord}.*`);
+      return condition.test(animal.name);
+    });
     return animal;
   }
 }
