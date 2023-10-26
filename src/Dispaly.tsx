@@ -18,10 +18,9 @@ function items(animals: AnimalType[]) {
   return animalList;
 }
 
-class Display extends Component<AnimalType[]> {
+class Display extends Component<{ animalsList: AnimalType[] }> {
   render() {
-    const { animals } = this.props;
-    console.log('!!!!!!!!!!!', this.props.animals);
+    const { animalsList } = this.props;
     return (
       <section>
         <header>
@@ -33,7 +32,7 @@ class Display extends Component<AnimalType[]> {
           <div className="col">canine</div>
           <div className="col">feline</div>
         </header>
-        {parse(items(animals))}
+        {parse(items(animalsList))}
       </section>
     );
   }

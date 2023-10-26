@@ -1,34 +1,22 @@
 import { Component } from 'react';
-
-class SearchBar extends Component {
+type SearchProps = {
+  handleSubmit: (event: any) => void;
+  handleChange: (event: any) => void;
+}
+class SearchBar extends Component<SearchProps> {
   render() {
     return (
       <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            id="first_name"
-            name="first_name"
-            type="text"
-            placeholder="First Name"
-            onChange={(event) => setFirstName(event.target.value)}
-            value={firstName}
-          />
-
-          <br />
-          <input
-            id="last_name"
-            name="last_name"
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-          />
-          <br />
-
-          <button type="submit">Submit form</button>
-
-          <h2>{message}</h2>
-        </form>
+        <div>
+          <form onSubmit={this.props.handleSubmit}>
+            <input
+              type="text"
+              onChange={this.props.handleChange}
+              placeholder="Search for animal..."
+            />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
       </div>
     );
   }

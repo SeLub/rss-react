@@ -1,30 +1,38 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
 import Display from './Dispaly';
-import { AnimalType } from './common/types';
-import { searchWord, searchAnimal } from './common/data';
+import { AnimalType, StateType } from './common/types';
+import { searchAnimal } from './common/data';
+import SearchBar from './Search';
 
-class App extends Component {
+class App extends Component<AnimalType[], StateType> {
   constructor(props: AnimalType[]) {
     super(props);
-    this.state = { animalsList: [] };
+    this.state = { animalsList: [], searchWord: '' };
   }
+
+  setSearchWordState = (searchWord: string) => {
+    this.setState({ searchWord: searchWord });
+  };
+
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setSearchWordState(e.target.value);
+    console.log(this.state.searchWord);
+  };
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const animals = (await searchAnimal(searchWord)) as AnimalType[];
-    console.log(animals);
+    const animals = (await searchAnimal(this.state.searchWord)) as AnimalType[];
     this.setState({ animalsList: animals });
   };
 
   render() {
     return (
       <>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-        <Display animals={this.state.animalsList} />
+        <SearchBar
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+        />
+        <Display animalsList={this.state.animalsList} />
       </>
     );
   }

@@ -8,6 +8,7 @@ export type AnimalType = {
   feline: boolean; //Whether it's a feline
 };
 
-export type SearchType = {
-  searchWord: string; //Search word
+export type StateType = {
+  animalsList: AnimalType[];
+  searchWord: string;
 };
