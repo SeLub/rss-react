@@ -1,13 +1,10 @@
 import { AnimalType } from './types';
 
-export const searchWord: string = '';
-
 const apiUrl = 'https://stapi.co/api/v1/rest/animal/search';
 
 async function fetchData(url: string) {
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
   return data;
 }
 
@@ -18,8 +15,8 @@ export async function searchAnimal(searchWord: string): Promise<AnimalType[]> {
     return animalsArray;
   } else {
     const animal = await animalsArray.filter((animal: AnimalType) => {
-      const condition = new RegExp(`.*${searchWord}.*`);
-      return condition.test(animal.name);
+      const condition = new RegExp(`.*${searchWord.toLowerCase()}.*`);
+      return condition.test(animal.name.toLowerCase());
     });
     return animal;
   }
