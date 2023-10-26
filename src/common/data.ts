@@ -18,7 +18,9 @@ export async function searchAnimal(searchWord: string): Promise<AnimalType[]> {
     return animalsArray;
   } else {
     const animal = await animalsArray.filter(
-      (animal: AnimalType) => animal.name === searchWord
+      (animal: AnimalType) => {
+        let condition = new RegExp(`.*${searchWord}.*`);
+        return condition.test(animal.name);}
     );
     return animal;
   }
