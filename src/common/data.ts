@@ -8,9 +8,11 @@ async function fetchData(url: string) {
   return data;
 }
 
-export async function searchAnimal(searchWord: string): Promise<AnimalType[]> {
+export async function searchAnimalInAPI(
+  searchWord: string
+): Promise<AnimalType[]> {
   const apiData = await fetchData(apiUrl);
-  const animalsArray = apiData.animals;
+  const animalsArray = await apiData.animals;
   if (searchWord.trim() === '') {
     return animalsArray;
   } else {
@@ -19,5 +21,18 @@ export async function searchAnimal(searchWord: string): Promise<AnimalType[]> {
       return condition.test(animal.name.toLowerCase());
     });
     return animal;
+  }
+}
+
+export function storeSearchWordToLocalStorage(searchWord: string) {
+  localStorage.setItem('searchWord', searchWord);
+}
+
+export function checkIfSearchWordPresentInLocalStorage() {
+  const searchWord = localStorage.getItem('searchWord');
+  if (searchWord) {
+    return searchWord;
+  } else {
+    return '';
   }
 }

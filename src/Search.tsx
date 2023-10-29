@@ -1,7 +1,6 @@
-import { ChangeEvent, Component } from 'react';
+import { Component } from 'react';
 type SearchProps = {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 class SearchBar extends Component<SearchProps> {
   render() {
@@ -11,7 +10,7 @@ class SearchBar extends Component<SearchProps> {
           <form onSubmit={this.props.handleSubmit}>
             <input
               type="text"
-              onChange={this.props.handleChange}
+              name="search"
               placeholder="Search for animal..."
             />
             <input type="submit" value="Submit" />
