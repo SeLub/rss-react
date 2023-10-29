@@ -23,7 +23,7 @@ class App extends Component<AnimalType[], StateType> {
 
   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchWord = event.target.elements.search.value;
+    const searchWord = (event.target as HTMLFormElement).search.value;
     storeSearchWordToLocalStorage(searchWord);
     this.setState({ searchWord: searchWord });
     const animals = await this.getAnimalsList(searchWord);
