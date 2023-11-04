@@ -1,41 +1,26 @@
 import { Component } from 'react';
 import Display from './Dispaly';
-import { AnimalType, StateType } from './common/types';
-import {
-  searchAnimalInAPI,
-  checkIfSearchWordPresentInLocalStorage,
-  storeSearchWordToLocalStorage,
-} from './common/data';
+import { checkIfSearchWordPresentInLocalStorage } from './common/data';
 import SearchBar from './Search';
 
 const searchWord = checkIfSearchWordPresentInLocalStorage();
-const animalsList = await searchAnimalInAPI(searchWord);
-class App extends Component<AnimalType[], StateType> {
-  constructor(props: AnimalType[]) {
+class App extends Component<Record<string, unknown>, { searchWord: string }> {
+  constructor(props: Record<string, unknown>) {
     super(props);
-    this.state = { animalsList, searchWord };
+    this.state = { searchWord };
   }
-
-  getAnimalsList = async (searchWord: string) => {
-    const animals = (await searchAnimalInAPI(searchWord)) as AnimalType[];
-    return animals;
-  };
-
-  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const searchWord = (event.target as HTMLFormElement).search.value;
-    storeSearchWordToLocalStorage(searchWord);
-    this.setState({ searchWord: searchWord });
-    const animals = await this.getAnimalsList(searchWord);
-    this.setState({ animalsList: animals });
+  setSearchWordState = (searchWord: string) => {
+    this.setState({ searchWord });
   };
 
   render() {
-    console.log('!!!!!!!!!!!! =>', this.state);
     return (
       <>
-        <SearchBar handleSubmit={this.handleSubmit} />
-        <Display animalsList={this.state.animalsList} />
+        <SearchBar
+          setSearchWordState={this.setSearchWordState}
+          searchWord={this.state.searchWord}
+        />
+        <Display searchWord={this.state.searchWord} />
       </>
     );
   }

@@ -10,5 +10,10 @@ export type AnimalType = {
 
 export type StateType = {
   animalsList: AnimalType[];
+  //searchWord: string;
+};
+
+export type SearchProps = {
+  setSearchWordState: (searchWord: string) => void;
   searchWord: string;
 };
