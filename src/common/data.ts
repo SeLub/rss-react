@@ -1,9 +1,7 @@
 import { AnimalType } from './types';
 
-const apiUrl = 'https://stapi.co/api/v1/rest/animal/search';
-
-async function fetchData(url: string) {
-  const response = await fetch(url);
+export async function fetchData() {
+  const response = await fetch('https://stapi.co/api/v1/rest/animal/search');
   const data = await response.json();
   return data;
 }
@@ -11,7 +9,7 @@ async function fetchData(url: string) {
 export async function searchAnimalInAPI(
   searchWord: string
 ): Promise<AnimalType[]> {
-  const apiData = await fetchData(apiUrl);
+  const apiData = await fetchData();
   const animalsArray = await apiData.animals;
   if (searchWord.trim() === '') {
     return animalsArray;
